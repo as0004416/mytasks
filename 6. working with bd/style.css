@@ -1,0 +1,73 @@
+h2 {
+    text-align: center;
+}
+
+.section {
+    max-width: 1200px;
+    padding: 5px 20px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+div#result {
+    width: 400px;
+    padding: 0 20px;
+    background: #4e7c50;
+}
+
+.errors {
+    padding: 5px;
+    font-size: 20px;
+    color: #f3ff00;
+}
+
+.added_succuss {
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #44ff44;
+}
+
+form#form {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px;
+    color: white;
+    width: 400px;
+    justify-content: center;
+    background: #4e7c50;
+}
+
+input {
+    padding: 5px 10px;
+    font-weight: 900;
+}
+
+input#submit {
+    padding: 10px;
+    background: #2f4230;
+    border: 3px solid #ffffff;
+    color: white;
+    font-weight: bold;
+}
+
+.form-row-submit {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 0 0;
+}
+
+.form-row {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+}
+
+label {
+    width: 30%;
+    font-size: 20px;
+    font-weight: bold;
+}

@@ -1,0 +1,138 @@
+/*Расписание занятий конкретной группы*/
+
+SELECT g.groupnumber AS 'Номер группы', s.speciality AS 'Специальность', 
+e.educationform AS 'Форма обучения', s2.subject AS 'Предмет',
+l.lessontype AS 'Тип', l1.lessondate AS 'Дата занятия', l1.lessontime AS 'Время начала',
+l1.hours AS 'Часы',b.address AS 'Адрес', c2.classroomnumber AS 'Номер кабинета', CONCAT(t.surname,' ', t.name,' ', t.middlename) AS 'ФИО Преподователя'
+FROM groupstudents g 
+INNER JOIN curriculum c ON g.idcurriculum = c.idcurriculum 
+INNER JOIN specialities s ON s.idspeciality = c.idspeciality 
+INNER JOIN educationforms e ON c.ideducationform=e.ideducationform 
+INNER JOIN curriculumsubjects c1 ON c1.idcurriculum = g.idcurriculum
+INNER JOIN subjecthours s1 ON c1.idcurriculum = s1.idcurriculum
+INNER JOIN subjects s2 ON s2.idsubject = s1.idsubject
+INNER JOIN lessontypes l ON l.idlessontype = s1.idlessontype
+INNER JOIN groupteachers g1 ON g.idgroup = g1.idgroup
+INNER JOIN lessons l1 ON l1.idgroupteacher = g1.idgroupteacher
+INNER JOIN classrooms c2 ON l1.idclassroom = c2.idclassroom
+INNER JOIN buildings b ON c2.idbuilding = b.idbuilding
+INNER JOIN teachers t ON g1.idteacher = t.idteacher
+WHERE g.groupnumber = 'C1';
+
+/*Расписание занятий конкретного преподавателя*/
+SELECT CONCAT(t.surname, ' ', t.name, ' ', t.middlename ) AS 'ФИО преподователя', p.position AS 'Звание', g1.groupnumber AS 'Группа',
+e.educationform AS 'Форма', s1.subject AS 'Предмет', l.lessondate AS 'Дата', l.lessontime AS 'Время начала', l.hours AS 'Часы',b.address AS 'Адрес' ,
+c1.classroomnumber AS 'Номер аудитории'
+
+FROM teachers t 
+INNER JOIN positions p ON t.idposition = p.idposition
+INNER JOIN groupteachers g ON t.idteacher = g.idteacher
+INNER JOIN groupstudents g1 ON g.idgroup = g1.idgroup
+INNER JOIN curriculum c ON g1.idcurriculum = c.idcurriculum
+INNER JOIN educationforms e ON c.ideducationform = e.ideducationform
+INNER JOIN lessons l ON g.idgroupteacher = l.idgroupteacher
+INNER JOIN classrooms c1 ON l.idclassroom = c1.idclassroom
+INNER JOIN buildings b ON c1.idbuilding = b.idbuilding
+INNER JOIN subjecthours s ON g.idsubjecthours = s.idsubjecthours AND g.idcurriculum = s.idcurriculum
+INNER JOIN subjects s1 ON s1.idsubject = s.idsubject
+WHERE t.surname = 'Иванов' AND t.name = 'Иван' AND t.middlename = 'Иванович' ORDER BY l.lessondate, l.lessontime ;
+
+/*Сведения о проведенных преподавателем занятиях за определенный период времени*/
+
+SELECT CONCAT(t.surname, ' ', t.name, ' ', t.middlename ) AS 'ФИО преподователя', p.position AS 'Звание', g1.groupnumber AS 'Группа',
+e.educationform AS 'Форма', s1.subject AS 'Предмет', l.lessondate AS 'Дата', l.lessontime AS 'Время начала', l.hours AS 'Часы',b.address AS 'Адрес' ,
+c1.classroomnumber AS 'Номер аудитории'
+
+FROM teachers t 
+INNER JOIN positions p ON t.idposition = p.idposition
+INNER JOIN groupteachers g ON t.idteacher = g.idteacher
+INNER JOIN groupstudents g1 ON g.idgroup = g1.idgroup
+INNER JOIN curriculum c ON g1.idcurriculum = c.idcurriculum
+INNER JOIN educationforms e ON c.ideducationform = e.ideducationform
+INNER JOIN lessons l ON g.idgroupteacher = l.idgroupteacher
+INNER JOIN classrooms c1 ON l.idclassroom = c1.idclassroom
+INNER JOIN buildings b ON c1.idbuilding = b.idbuilding
+INNER JOIN subjecthours s ON g.idsubjecthours = s.idsubjecthours AND g.idcurriculum = s.idcurriculum
+INNER JOIN subjects s1 ON s1.idsubject = s.idsubject
+WHERE t.surname = 'Иванов' AND t.name = 'Иван' AND t.middlename = 'Иванович' AND l.lessondate >= '2020-05-05' AND l.lessondate <= '2020-05-06' ORDER BY l.lessondate, l.lessontime;
+
+/*Информация для каждой группы об общем количестве часов по дисциплинам и видам занятий*/
+
+SELECT g.groupnumber AS 'Группа', s.subject AS 'Предмет', l.lessontype 'Вид занятия',s1.hours AS 'Общ. кол. часов'
+FROM groupstudents g
+INNER JOIN curriculum c ON g.idcurriculum = c.idcurriculum
+INNER JOIN curriculumsubjects c1 ON c.idcurriculum = c1.idcurriculum
+INNER JOIN subjects s ON c1.idsubject = s.idsubject
+INNER JOIN subjecthours s1 ON c1.idcurriculum = s1.idcurriculum AND c1.idsubject = s1.idsubject
+INNER JOIN lessontypes l ON s1.idlessontype = l.idlessontype
+
+
+/*Расписание занятий конкретной группы*/
+
+SELECT g.groupnumber AS 'Номер группы', s.speciality AS 'Специальность', 
+e.educationform AS 'Форма обучения', s2.subject AS 'Предмет',
+l.lessontype AS 'Тип', l1.lessondate AS 'Дата занятия', l1.lessontime AS 'Время начала',
+l1.hours AS 'Часы',b.address AS 'Адрес', c2.classroomnumber AS 'Номер кабинета', CONCAT(t.surname,' ', t.name,' ', t.middlename) AS 'ФИО Преподователя'
+FROM groupstudents g 
+INNER JOIN curriculum c ON g.idcurriculum = c.idcurriculum 
+INNER JOIN specialities s ON s.idspeciality = c.idspeciality 
+INNER JOIN educationforms e ON c.ideducationform=e.ideducationform 
+INNER JOIN curriculumsubjects c1 ON c1.idcurriculum = g.idcurriculum
+INNER JOIN subjecthours s1 ON c1.idcurriculum = s1.idcurriculum
+INNER JOIN subjects s2 ON s2.idsubject = s1.idsubject
+INNER JOIN lessontypes l ON l.idlessontype = s1.idlessontype
+INNER JOIN groupteachers g1 ON g.idgroup = g1.idgroup
+INNER JOIN lessons l1 ON l1.idgroupteacher = g1.idgroupteacher
+INNER JOIN classrooms c2 ON l1.idclassroom = c2.idclassroom
+INNER JOIN buildings b ON c2.idbuilding = b.idbuilding
+INNER JOIN teachers t ON g1.idteacher = t.idteacher
+WHERE g.groupnumber = 'C1';
+
+/*Расписание занятий конкретного преподавателя*/
+SELECT CONCAT(t.surname, ' ', t.name, ' ', t.middlename ) AS 'ФИО преподователя', p.position AS 'Звание', g1.groupnumber AS 'Группа',
+e.educationform AS 'Форма', s1.subject AS 'Предмет', l.lessondate AS 'Дата', l.lessontime AS 'Время начала', l.hours AS 'Часы',b.address AS 'Адрес' ,
+c1.classroomnumber AS 'Номер аудитории'
+
+FROM teachers t 
+INNER JOIN positions p ON t.idposition = p.idposition
+INNER JOIN groupteachers g ON t.idteacher = g.idteacher
+INNER JOIN groupstudents g1 ON g.idgroup = g1.idgroup
+INNER JOIN curriculum c ON g1.idcurriculum = c.idcurriculum
+INNER JOIN educationforms e ON c.ideducationform = e.ideducationform
+INNER JOIN lessons l ON g.idgroupteacher = l.idgroupteacher
+INNER JOIN classrooms c1 ON l.idclassroom = c1.idclassroom
+INNER JOIN buildings b ON c1.idbuilding = b.idbuilding
+INNER JOIN subjecthours s ON g.idsubjecthours = s.idsubjecthours AND g.idcurriculum = s.idcurriculum
+INNER JOIN subjects s1 ON s1.idsubject = s.idsubject
+WHERE t.surname = 'Иванов' AND t.name = 'Иван' AND t.middlename = 'Иванович' ORDER BY l.lessondate, l.lessontime ;
+
+/*Сведения о проведенных преподавателем занятиях за определенный период времени*/
+
+SELECT CONCAT(t.surname, ' ', t.name, ' ', t.middlename ) AS 'ФИО преподователя', p.position AS 'Звание', g1.groupnumber AS 'Группа',
+e.educationform AS 'Форма', s1.subject AS 'Предмет', l.lessondate AS 'Дата', l.lessontime AS 'Время начала', l.hours AS 'Часы',b.address AS 'Адрес' ,
+c1.classroomnumber AS 'Номер аудитории'
+
+FROM teachers t 
+INNER JOIN positions p ON t.idposition = p.idposition
+INNER JOIN groupteachers g ON t.idteacher = g.idteacher
+INNER JOIN groupstudents g1 ON g.idgroup = g1.idgroup
+INNER JOIN curriculum c ON g1.idcurriculum = c.idcurriculum
+INNER JOIN educationforms e ON c.ideducationform = e.ideducationform
+INNER JOIN lessons l ON g.idgroupteacher = l.idgroupteacher
+INNER JOIN classrooms c1 ON l.idclassroom = c1.idclassroom
+INNER JOIN buildings b ON c1.idbuilding = b.idbuilding
+INNER JOIN subjecthours s ON g.idsubjecthours = s.idsubjecthours AND g.idcurriculum = s.idcurriculum
+INNER JOIN subjects s1 ON s1.idsubject = s.idsubject
+WHERE t.surname = 'Иванов' AND t.name = 'Иван' AND t.middlename = 'Иванович' AND l.lessondate >= '2020-05-05' AND l.lessondate <= '2020-05-06' ORDER BY l.lessondate, l.lessontime;
+
+/*Информация для каждой группы об общем количестве часов по дисциплинам и видам занятий*/
+
+SELECT g.groupnumber AS 'Группа', s.subject AS 'Предмет', l.lessontype 'Вид занятия',s1.hours AS 'Общ. кол. часов'
+FROM groupstudents g
+INNER JOIN curriculum c ON g.idcurriculum = c.idcurriculum
+INNER JOIN curriculumsubjects c1 ON c.idcurriculum = c1.idcurriculum
+INNER JOIN subjects s ON c1.idsubject = s.idsubject
+INNER JOIN subjecthours s1 ON c1.idcurriculum = s1.idcurriculum AND c1.idsubject = s1.idsubject
+INNER JOIN lessontypes l ON s1.idlessontype = l.idlessontype
+
+

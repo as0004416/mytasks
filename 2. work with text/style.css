@@ -1,0 +1,41 @@
+li {
+    list-style-type: none;
+}
+
+.section {
+    max-width: 1200px;
+    padding: 5px 20px;
+    margin: 0 auto;
+}
+
+.statistics p {
+    line-height: 0.6em;
+}
+
+.statistics {
+    background: #87f1ff;
+    padding: 10px 40px;
+}
+
+ul.pagination {
+    display: flex;
+    padding: 20px 60px;
+}
+
+li.item {
+    padding: 20px;
+    background-color: #2196F3;
+    margin: 5px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.main-content-articles h1 {
+    text-align: center;
+    color: #5da0a9;
+}

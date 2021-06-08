@@ -1,0 +1,48 @@
+li {
+    list-style-type: none;
+}
+
+.section {
+    max-width: 1200px;
+    padding: 5px 20px;
+    margin: 0 auto;
+}
+.block-article-section {
+    display: flex;
+    background: #ebf1f1;
+}
+.img-item img {
+    width: 300px;
+    padding: 20px;
+}
+.article-item p {
+    font-size: 20px;
+    padding: 0 20px
+}
+p.date {
+    color: #2196F3;
+    font-weight: bold;
+    font-size: 22px;
+}
+ul.pagination {
+    display: flex;
+    padding: 20px 60px;
+}
+
+li.item {
+    padding: 20px;
+    background-color: #2196F3;
+    margin: 5px;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.main-content-articles h1 {
+    padding: 0 20px;
+    color: #003f71;
+}
